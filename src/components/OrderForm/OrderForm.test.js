@@ -58,5 +58,29 @@ describe('Order Form', () => {
     fireEvent.change(nameInput, { target: { value: 'Rachel'}});
 
     expect(nameInput.value).toBe('Rachel');
-  })
+  });
+
+  it('should call the addNewOrder function on form submit if form has been filled out', () => {
+
+    const mockAddNewOrder = jest.fn()
+
+    render(
+      <OrderForm
+        addNewOrder={mockAddNewOrder}
+      />
+    )
+
+    const nameInput = screen.getByPlaceholderText('Name');
+    const beansBtn = screen.getByRole('button', { name: 'beans' });
+    const guacamoleBtn = screen.getByRole('button', { name: 'guacamole' });
+    const submitBtn = screen.getByRole('button', { name: 'Submit Order' });
+
+    fireEvent.change(nameInput, { target: { value: 'Rachel' } });
+    fireEvent.click(beansBtn);
+    fireEvent.click(guacamoleBtn);
+    fireEvent.click(submitBtn);
+
+    expect(mockAddNewOrder).toHaveBeenCalledTimes(1);
+    expect(mockAddNewOrder).toHaveBeenCalledWith({ name: 'Rachel', ingredients: ['beans', 'guacamole']})
+  });
 })
