@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {getOrders, postOrder} from '../../apiCalls';
+import {deleteOrder, getOrders, postOrder} from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -28,6 +28,18 @@ class App extends Component {
       .catch(err => console.error('Could not post new order'))
   }
 
+  removeOrder = (event) => {
+    event.preventDefault(); 
+    const orderId = event.target.id
+    deleteOrder(orderId)
+      .then(response => {
+        const newOrderState = this.state.orders
+        const targetIndex = newOrderState.findIndex(order => order.id === parseInt(orderId));
+        newOrderState.splice(targetIndex, 1)
+        this.setState({ orders: newOrderState})
+      })
+  }
+
   render() {
     return (
       <main className="App">
@@ -38,7 +50,10 @@ class App extends Component {
           />
         </header>
 
-        <Orders orders={this.state.orders}/>
+        <Orders 
+          orders={this.state.orders}
+          removeOrder={this.removeOrder}
+        />
       </main>
     );
   }

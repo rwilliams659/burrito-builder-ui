@@ -1,5 +1,6 @@
 import React from 'react';
 import './Orders.css';
+import propTypes from 'prop-types'
 
 const Orders = props => {
   const orderEls = props.orders.map(order => {
@@ -11,7 +12,7 @@ const Orders = props => {
             return <li key={index}>{ingredient}</li>
           })}
         </ul>
-        <button>Delete order</button>
+        <button id={order.id} onClick={props.removeOrder}>Delete order</button>
       </div>
     )
   });
@@ -22,5 +23,11 @@ const Orders = props => {
     </section>
   )
 }
+
+Orders.propTypes = {
+  orders: propTypes.array,
+  removeOrder: propTypes.func
+}
+
 
 export default Orders;
