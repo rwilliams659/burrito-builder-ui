@@ -49,6 +49,27 @@ describe('App', () => {
     expect(order3).toBeInTheDocument();
   });
 
+  it('should display a message that there are no orders yet if there were none stored in server', async () => {
+
+    getOrders.mockResolvedValue({
+      orders: []
+    })
+
+    render(
+      <App />
+    )
+
+    const appName = screen.getByRole('heading', { name: 'Burrito Builder' });
+    const nameInput = screen.getByPlaceholderText('Name');
+    const submitBtn = screen.getByRole('button', { name: 'Submit Order' });
+    const noOrderMsg = await waitFor(() => screen.getByText('No orders yet!'))
+
+    expect(appName).toBeInTheDocument();
+    expect(nameInput).toBeInTheDocument();
+    expect(submitBtn).toBeInTheDocument();
+    expect(noOrderMsg).toBeInTheDocument();
+  });
+
   it('should allow a user to create an order and see it on the screen', async () => {
 
     getOrders.mockResolvedValue({
