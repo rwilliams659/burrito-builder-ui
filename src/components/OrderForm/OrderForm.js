@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types'
 
 class OrderForm extends Component {
   constructor(props) {
@@ -13,6 +14,13 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    if (this.state.name && this.state.ingredients.length > 0) {
+      const orderToPost = {
+        name: this.state.name,
+        ingredients: this.state.ingredients
+      }
+      this.props.addNewOrder(orderToPost)
+    }
     this.clearInputs();
   }
 
@@ -63,6 +71,10 @@ class OrderForm extends Component {
       </form>
     )
   }
+}
+
+OrderForm.propTypes = {
+  addNewOrder: propTypes.func
 }
 
 export default OrderForm;

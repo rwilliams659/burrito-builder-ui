@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   addNewOrder = (orderToPost) => {
-    postOrder()
+    postOrder(orderToPost)
       .then(order => {
         const newOrderState = this.state.orders;
         newOrderState.push(order);
