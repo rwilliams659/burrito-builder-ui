@@ -9,9 +9,11 @@ const Orders = props => {
         <h3>{order.name}</h3>
         <ul className="ingredient-list">
           {order.ingredients.map((ingredient, index) => {
-            return <li key={index}>{ingredient}</li>
+            return <li key={index}>{ingredient} ${props.ingredientCosts[ingredient].toFixed(2)}</li>
+            // Add ingredient cost in here
           })}
         </ul>
+        {/* total cost p tag */}
         <button id={order.id} onClick={props.removeOrder} aria-label={`Delete order for ${order.name}`}>Delete order</button>
       </div>
     )
@@ -26,7 +28,8 @@ const Orders = props => {
 
 Orders.propTypes = {
   orders: propTypes.array,
-  removeOrder: propTypes.func
+  removeOrder: propTypes.func,
+  ingredientCosts: propTypes.object
 }
 
 

@@ -8,7 +8,21 @@ class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      orders: []
+      orders: [],
+      ingredientCosts: {
+        beans: 1.5,
+        steak: 4,
+        carnitas: 3,
+        sofritas: 2.5,
+        lettuce: 0.5,
+        'queso fresco': 2,
+        'pico de gallo': 1,
+        'hot sauce': 0.5,
+        guacamole: 2,
+        jalapenos: 0.5,
+        cilantro: 0.5,
+        'sour cream': 1
+      }
     }
   }
 
@@ -53,6 +67,7 @@ class App extends Component {
         <Orders 
           orders={this.state.orders}
           removeOrder={this.removeOrder}
+          ingredientCosts={this.state.ingredientCosts}
         />
       </main>
     );
