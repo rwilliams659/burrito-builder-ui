@@ -20,6 +20,14 @@ class OrderForm extends Component {
     this.setState({name: '', ingredients: []});
   }
 
+  handleIngredientChange = (e) => {
+    e.preventDefault();
+    const name = e.target.name
+    const newIngredientsState = this.state.ingredients
+    newIngredientsState.push(name)
+    this.setState({ ingredients: newIngredientsState })
+  }
+
   render() {
     const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
     const ingredientButtons = possibleIngredients.map(ingredient => {
