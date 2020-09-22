@@ -1,6 +1,6 @@
 import React from 'react'
 import OrderForm from './OrderForm'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
 describe('Order Form', () => {
@@ -45,7 +45,18 @@ describe('Order Form', () => {
     expect(submitBtn).toBeInTheDocument();
   });
 
-  //fill out form, expect form values to be what user selected
+  it('should have form values that update based on the user inputs', () => {
 
-  //
+    render(
+      <OrderForm
+        addNewOrder={jest.fn()}
+      />
+    )
+
+    const nameInput = screen.getByPlaceholderText('Name');
+
+    fireEvent.change(nameInput, { target: { value: 'Rachel'}});
+
+    expect(nameInput.value).toBe('Rachel');
+  })
 })
