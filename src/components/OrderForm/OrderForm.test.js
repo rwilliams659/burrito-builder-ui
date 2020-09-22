@@ -83,4 +83,44 @@ describe('Order Form', () => {
     expect(mockAddNewOrder).toHaveBeenCalledTimes(1);
     expect(mockAddNewOrder).toHaveBeenCalledWith({ name: 'Rachel', ingredients: ['beans', 'guacamole']})
   });
+
+  it('should not call the addNewOrder function on form submit if no ingredients have been selected on form', () => {
+
+    const mockAddNewOrder = jest.fn()
+
+    render(
+      <OrderForm
+        addNewOrder={mockAddNewOrder}
+      />
+    )
+
+    const nameInput = screen.getByPlaceholderText('Name');
+    const submitBtn = screen.getByRole('button', { name: 'Submit Order' });
+
+    fireEvent.change(nameInput, { target: { value: 'Rachel' } });
+    fireEvent.click(submitBtn);
+
+    expect(mockAddNewOrder).toHaveBeenCalledTimes(0);
+  });
+
+  it('should not call the addNewOrder function on form submit if a name has not been added to the form', () => {
+
+    const mockAddNewOrder = jest.fn()
+
+    render(
+      <OrderForm
+        addNewOrder={mockAddNewOrder}
+      />
+    )
+
+    const beansBtn = screen.getByRole('button', { name: 'beans' });
+    const guacamoleBtn = screen.getByRole('button', { name: 'guacamole' });
+    const submitBtn = screen.getByRole('button', { name: 'Submit Order' });
+    
+    fireEvent.click(beansBtn);
+    fireEvent.click(guacamoleBtn);
+    fireEvent.click(submitBtn);
+
+    expect(mockAddNewOrder).toHaveBeenCalledTimes(0);
+  });
 })
