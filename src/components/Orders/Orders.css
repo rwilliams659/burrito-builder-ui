@@ -1,8 +1,16 @@
+.Orders {
+  margin: 2em 9em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 2em; 
+}
+
 .order {
   border: 1px solid black;
   display: inline-block;
   margin: 10px;
   background-color: #FFF;
+  border-radius: 0.2em;
 }
 
 .ingredient-list {

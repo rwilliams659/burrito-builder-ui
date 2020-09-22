@@ -1,0 +1,23 @@
+.OrderForm {
+  margin: 0 10em;
+  padding: 1em; 
+  background-color: #00dcff;
+  opacity: 0.8
+}
+
+.name-input {
+  padding: 1em; 
+}
+
+button {
+  background-color: #373738;
+  color: white; 
+  margin: 0.3em; 
+  border-radius: 1em;
+}
+
+button:hover {
+  background-color: black;
+  cursor: pointer;
+
+}

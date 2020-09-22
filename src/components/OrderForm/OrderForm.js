@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types'
+import './OrderForm.css'
 
 class OrderForm extends Component {
   constructor(props) {
@@ -54,15 +55,16 @@ class OrderForm extends Component {
     });
 
     return (
-      <form>
-        <input
-          type='text'
-          placeholder='Name'
-          name='name'
-          value={this.state.name}
-          onChange={e => this.handleNameChange(e)}
-        />
-
+      <form className='OrderForm'>
+        <section className='name-input'>
+          <input
+            type='text'
+            placeholder='Name'
+            name='name'
+            value={this.state.name}
+            onChange={e => this.handleNameChange(e)}
+          />
+        </section>
         { ingredientButtons }
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
