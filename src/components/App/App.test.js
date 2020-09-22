@@ -2,7 +2,7 @@ import React from 'react'
 import App from './App'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { getOrders, postOrder } from '../../apiCalls'
+import { getOrders, postOrder, deleteOrder } from '../../apiCalls'
 jest.mock('../../apiCalls.js')
 
 describe('App', () => {
@@ -115,5 +115,41 @@ describe('App', () => {
     const newOrder = await waitFor(() => screen.getByRole('heading', { name: 'Rachel'}));
 
     expect(newOrder).toBeInTheDocument(); 
+  });
+
+  it('should allow a user to delete an order from the system once it is complete', async () => {
+
+    getOrders.mockResolvedValue({
+      orders: [
+        {
+          id: 1,
+          name: 'Pat',
+          ingredients: ['beans', 'lettuce', 'carnitas', 'queso fresco', 'jalapeno']
+        },
+        {
+          id: 2,
+          name: 'Joe',
+          ingredients: ['beans', 'sofritas', 'guacamole']
+        },
+        {
+          id: 3,
+          name: 'Melissa',
+          ingredients: ['lettuce', 'pico de gallo', 'hot sauce']
+        }
+      ]
+    })
+
+    deleteOrder.mockResolvedValue(['Successful delete'])
+
+    render(
+      <App />
+    )
+
+    const order1 = await waitFor(() => screen.getByRole('heading', { name: 'Pat' }));
+    const deleteBtn1 = screen.getByLabelText('Delete order for Pat');
+    
+    fireEvent.click(deleteBtn1);
+
+    await waitFor(() => expect(order1).not.toBeInTheDocument());
   })
 })

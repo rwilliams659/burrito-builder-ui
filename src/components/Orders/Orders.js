@@ -12,7 +12,7 @@ const Orders = props => {
             return <li key={index}>{ingredient}</li>
           })}
         </ul>
-        <button id={order.id} onClick={props.removeOrder}>Delete order</button>
+        <button id={order.id} onClick={props.removeOrder} aria-label={`Delete order for ${order.name}`}>Delete order</button>
       </div>
     )
   });
