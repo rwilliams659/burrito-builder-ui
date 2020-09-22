@@ -11,6 +11,7 @@ const Orders = props => {
             return <li key={index}>{ingredient}</li>
           })}
         </ul>
+        <button>Delete order</button>
       </div>
     )
   });
