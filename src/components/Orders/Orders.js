@@ -10,10 +10,11 @@ const Orders = props => {
         <ul className="ingredient-list">
           {order.ingredients.map((ingredient, index) => {
             return <li key={index}>{ingredient} ${props.ingredientCosts[ingredient].toFixed(2)}</li>
-            // Add ingredient cost in here
           })}
         </ul>
-        {/* total cost p tag */}
+        <p>Total cost: ${order.ingredients.reduce((totalCost, ingredient) => {
+          return totalCost + props.ingredientCosts[ingredient]
+        }, 0).toFixed(2)}</p>
         <button id={order.id} onClick={props.removeOrder} aria-label={`Delete order for ${order.name}`}>Delete order</button>
       </div>
     )
