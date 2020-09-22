@@ -84,6 +84,29 @@ describe('Order Form', () => {
     expect(mockAddNewOrder).toHaveBeenCalledWith({ name: 'Rachel', ingredients: ['beans', 'guacamole']})
   });
 
+  it('if an ingredient button is clicked multiple times, it should still only be added to order once', () => {
+
+    const mockAddNewOrder = jest.fn()
+
+    render(
+      <OrderForm
+        addNewOrder={mockAddNewOrder}
+      />
+    )
+
+    const nameInput = screen.getByPlaceholderText('Name');
+    const guacamoleBtn = screen.getByRole('button', { name: 'guacamole' });
+    const submitBtn = screen.getByRole('button', { name: 'Submit Order' });
+
+    fireEvent.change(nameInput, { target: { value: 'Rachel' } });
+    fireEvent.click(guacamoleBtn);
+    fireEvent.click(guacamoleBtn);
+    fireEvent.click(guacamoleBtn);
+    fireEvent.click(submitBtn);
+
+    expect(mockAddNewOrder).toHaveBeenCalledWith({ name: 'Rachel', ingredients: ['guacamole'] });
+  });
+
   it('should not call the addNewOrder function on form submit if no ingredients have been selected on form', () => {
 
     const mockAddNewOrder = jest.fn()
