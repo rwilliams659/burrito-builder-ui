@@ -32,8 +32,10 @@ class OrderForm extends Component {
     e.preventDefault();
     const name = e.target.name
     const newIngredientsState = this.state.ingredients
-    newIngredientsState.push(name)
-    this.setState({ ingredients: newIngredientsState })
+    if (!newIngredientsState.includes(name)) {
+      newIngredientsState.push(name);
+      this.setState({ ingredients: newIngredientsState })
+    }
   }
 
   handleNameChange = (e) => {
